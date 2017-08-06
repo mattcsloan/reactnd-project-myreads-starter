@@ -7,8 +7,14 @@ import Search from './Search/Search';
 import BooksList from './Books/BooksList';
 
 class BooksApp extends React.Component {
-  state = {
-    books: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      books: [],
+    }
+
+    this.moveBook = this.moveBook.bind(this);
   }
 
   componentDidMount() {
@@ -18,8 +24,13 @@ class BooksApp extends React.Component {
   }
 
   moveBook(book, shelf) {
-    BooksAPI.update(book, shelf).then((books) => {
-      console.log('books', books)
+    BooksAPI.update(book, shelf).then((res) => {
+      // updates the book to have the new book shelf requested
+      book.shelf = shelf;
+      this.setState(prevState => ({
+        // removes the book, then adds it back via concat (with the updated book.shelf)
+        books: prevState.books.filter(b => b.id !== book.id).concat(book)
+      }));
     })
 
   }
