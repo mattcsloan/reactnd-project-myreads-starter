@@ -12,9 +12,12 @@ class BooksApp extends React.Component {
 
     this.state = {
       books: [],
+      query: '',
+      filteredBooks: [],
     }
 
     this.moveBook = this.moveBook.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
   componentDidMount() {
@@ -29,18 +32,45 @@ class BooksApp extends React.Component {
       book.shelf = shelf;
       this.setState(prevState => ({
         // removes the book, then adds it back via concat (with the updated book.shelf)
-        books: prevState.books.filter(b => b.id !== book.id).concat(book)
+        books: prevState.books.filter(b => b.id !== book.id).concat(book),
+        // remove the book from the filteredBooks state so that when adding via search results, it removes the book
+        filteredBooks: prevState.filteredBooks.filter(b => b.id !== book.id)
       }));
     })
+  }
 
+  updateQuery(query) {
+    const maxResults = 20;
+    this.setState({query});
+    if(!query) {
+      this.setState({
+        filteredBooks: []
+      });
+    } else {
+      BooksAPI.search(query, maxResults).then((filteredBooks) => {
+        this.setState({
+          filteredBooks
+        });
+      });
+    }
   }
 
   render() {
     return (
       <div className="app">
-        <Route path="/search" component={Search} />
+        <Route path="/search" render={() => (
+          <Search 
+            onUpdateBook={this.moveBook} 
+            onUpdateQuery={this.updateQuery} 
+            query={this.state.query} 
+            filteredBooks={this.state.filteredBooks} 
+          />
+        )}  />
         <Route exact path="/" render={() => (
-          <BooksList onUpdateBook={this.moveBook} books={this.state.books} />
+          <BooksList 
+            onUpdateBook={this.moveBook} 
+            books={this.state.books} 
+          />
         )}  />
       </div>
     )

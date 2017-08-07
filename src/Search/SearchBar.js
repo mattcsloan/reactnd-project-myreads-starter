@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class SearchBar extends Component {
+  updateQuery(query) {
+    this.props.onUpdateQuery(query);
+  }
+  
   render() {
     return (
       <div className="search-books-bar">
@@ -20,11 +25,21 @@ class SearchBar extends Component {
             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
             you don't find a specific author or title. Every search is limited by search terms.
           */}
-          <input type="text" placeholder="Search by title or author"/>
+          <input 
+            type="text" 
+            placeholder="Search by title or author"
+            value={this.props.query}
+            onChange={(e) => this.updateQuery(e.target.value)}
+          />
         </div>
       </div>
     )
   }
+};
+
+SearchBar.propTypes = {
+  query: PropTypes.string.isRequired,
+  onUpdateQuery: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
