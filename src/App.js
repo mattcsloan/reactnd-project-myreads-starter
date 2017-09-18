@@ -52,8 +52,9 @@ class BooksApp extends React.Component {
           filteredBooks.map(book => {
             const matchedBook = this.state.books.filter(b => b.id === book.id);
             if(matchedBook.length) {
-              filteredBooks = filteredBooks.filter(b => b.id !== book.id).concat(matchedBook[0]);
+              return filteredBooks = filteredBooks.filter(b => b.id !== book.id).concat(matchedBook[0]);
             }
+            return true;
           });
         }
         this.setState({

@@ -6,6 +6,11 @@ import Bookshelf from './Bookshelf';
 
 class BooksList extends Component {
   render() {
+    const {
+      books,
+      onUpdateBook
+    } = this.props;
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -16,20 +21,20 @@ class BooksList extends Component {
             <Bookshelf 
               title="Currently Reading" 
               shelf="currentlyReading" 
-              books={this.props.books}
-              onUpdateBook={this.props.onUpdateBook}
+              books={books}
+              onUpdateBook={onUpdateBook}
             />
             <Bookshelf 
               title="Want to Read" 
               shelf="wantToRead" 
-              books={this.props.books} 
-              onUpdateBook={this.props.onUpdateBook}
+              books={books}
+              onUpdateBook={onUpdateBook}
             />
             <Bookshelf 
               title="Read" 
               shelf="read" 
-              books={this.props.books} 
-              onUpdateBook={this.props.onUpdateBook}
+              books={books}
+              onUpdateBook={onUpdateBook}
             />
           </div>
         </div>

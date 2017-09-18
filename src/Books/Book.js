@@ -4,15 +4,20 @@ import PropTypes from 'prop-types';
 import BookMenu from './BookMenu';
 class Book extends Component {
   render() {
+    const {
+      book,
+      onUpdateBook
+    } = this.props;
+
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")` }}></div>
-          <BookMenu onUpdateBook={this.props.onUpdateBook} book={this.props.book} />
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
+          <BookMenu onUpdateBook={onUpdateBook} book={book} />
         </div>
-        <div className="book-title">{this.props.book.title}</div>
+        <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {this.props.book.authors && this.props.book.authors.map((author, i) => (
+          {book.authors && book.authors.map((author, i) => (
             <span className="book-author" key={i}>{author}</span>
           ))}
         </div>

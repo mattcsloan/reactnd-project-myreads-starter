@@ -8,16 +8,23 @@ class Search extends Component {
     this.props.onUpdateQuery('');
   }
   render() {
+    const {
+      query,
+      onUpdateQuery,
+      filteredBooks,
+      onUpdateBook
+    } = this.props;
+
     return (
       <div className="search-books">
         <SearchBar 
-          onUpdateQuery={this.props.onUpdateQuery} 
-          query={this.props.query} 
+          onUpdateQuery={onUpdateQuery} 
+          query={query} 
         />
         <SearchList 
-          filteredBooks={this.props.filteredBooks} 
-          query={this.props.query} 
-          onUpdateBook={this.props.onUpdateBook}
+          filteredBooks={filteredBooks} 
+          query={query} 
+          onUpdateBook={onUpdateBook}
         />
       </div>
     )

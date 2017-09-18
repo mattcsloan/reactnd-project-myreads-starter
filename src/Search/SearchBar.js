@@ -8,6 +8,10 @@ class SearchBar extends Component {
   }
   
   render() {
+    const {
+      query
+    } = this.props;
+
     return (
       <div className="search-books-bar">
         <Link
@@ -28,7 +32,7 @@ class SearchBar extends Component {
           <input 
             type="text" 
             placeholder="Search by title or author"
-            value={this.props.query}
+            value={query}
             onChange={(e) => this.updateQuery(e.target.value)}
           />
         </div>

@@ -4,12 +4,15 @@ import Book from '../Books/Book';
 
 class SearchList extends Component {
   render() {
-    const onUpdateBook = this.props.onUpdateBook;
+    const {
+      filteredBooks,
+      onUpdateBook
+    } = this.props;
 
     return (
       <div className="search-books-results">
         <ol className="books-grid">
-           {this.props.filteredBooks.length > 0 && this.props.filteredBooks.map(function(book, i) {
+           {filteredBooks.length > 0 && filteredBooks.map(function(book, i) {
             return (
               <li key={i}>
                 <Book book={book} onUpdateBook={onUpdateBook} />
