@@ -34,7 +34,7 @@ class BooksApp extends React.Component {
         // removes the book, then adds it back via concat (with the updated book.shelf)
         books: prevState.books.filter(b => b.id !== book.id).concat(book),
         // remove the book from the filteredBooks state so that when adding via search results, it removes the book
-        filteredBooks: prevState.filteredBooks.filter(b => b.id !== book.id)
+        // filteredBooks: prevState.filteredBooks.filter(b => b.id !== book.id)
       }));
     })
   }
@@ -48,6 +48,14 @@ class BooksApp extends React.Component {
       });
     } else {
       BooksAPI.search(query, maxResults).then((filteredBooks) => {
+        if(filteredBooks.length) {
+          filteredBooks.map(book => {
+            const matchedBook = this.state.books.filter(b => b.id === book.id);
+            if(matchedBook.length) {
+              filteredBooks = filteredBooks.filter(b => b.id !== book.id).concat(matchedBook[0]);
+            }
+          });
+        }
         this.setState({
           filteredBooks
         });
