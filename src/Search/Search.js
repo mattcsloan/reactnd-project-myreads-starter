@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import SearchList from './SearchList';
 import SearchBar from './SearchBar';
 
@@ -29,6 +31,13 @@ class Search extends Component {
       </div>
     )
   }
+};
+
+Search.propTypes = {
+  onUpdateBook: PropTypes.func.isRequired,
+  onUpdateQuery: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
+  filteredBooks: PropTypes.array.isRequired
 };
 
 export default Search;
